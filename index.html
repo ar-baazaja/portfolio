@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arbaz Awan - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #0d1f1f;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    header {
+  position: relative;
+  color: #f0ff00;
+  text-align: center;
+  padding: 120px 20px 80px;
+
+  background: url('img4.jpg') top center/contain no-repeat;
+  background-color: #0d1f1f;
+}
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 31, 31, 0.6);
+      z-index: 1;
+    }
+
+    header h1,
+    header p {
+      position: relative;
+      z-index: 2;
+    }
+
+    header h1 {
+      font-size: 4rem;
+      letter-spacing: 2px;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      margin-top: 10px;
+      text-transform: uppercase;
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: #f0ff00;
+      margin-bottom: 20px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+    }
+
+    .project-box {
+      position: relative;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+      border-radius: 10px;
+      background-color: #0d1f1f;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+
+    .project-box:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 40px rgba(255, 255, 0, 0.4);
+    }
+
+    .project-box .slide {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: 0.5s;
+    }
+
+    .project-box .slide1,
+    .project-box .slide2 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .project-box .slide1 {
+      background-image: url('https://via.placeholder.com/300x200');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .project-box .slide1 .content h3,
+    .project-box .slide2 .content p {
+      color: #f0ff00;
+    }
+
+    .project-box .slide2 {
+      background-color: rgba(13, 31, 31, 0.95);
+      transform: translateY(100%);
+    }
+
+    .project-box:hover .slide1 {
+      transform: translateY(-100%);
+    }
+
+    .project-box:hover .slide2 {
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      background-color: #0d1f1f;
+      color: white;
+      padding: 30px 20px;
+      font-size: 0.9rem;
+    }
+      .design-content {
+      display: none;
+      width: 100%;
+      padding: 20px;
+      background-color: #122222;
+      color: #f0ff00;
+      border-radius: 10px;
+      margin-top: 0px;
+    }
+
+    .design-content.active {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .design-content img {
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+    }
+
+    .landscape {
+      width: 100%;
+    }
+
+    .portrait,
+    .square {
+      width: calc(50% - 10px);
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2.5rem;
+      }
+
+      header p {
+        font-size: 1rem;
+      }
+
+      .project-box {
+        height: 180px;
+      }
+    
+      .design-project {
+      width: 90%;
+      margin: 0 auto 20px;
+      border: 2px solid #f0ff00;
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #111;
+    }
+
+    .project-header {
+      padding: 15px 20px;
+      font-size: 1.2rem;
+      font-weight: bold;
+      cursor: pointer;
+      background-color: #0d1f1f;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .project-header:hover {
+      background-color: #1a2a2a;
+    }
+
+    .project-images {
+      display: none;
+      padding: 20px;
+      animation: dropFade 0.3s ease;
+      background-color: #111;
+    }
+
+    .project-images.open {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .project-images img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      border: 2px solid #f0ff00;
+    }
+
+    @keyframes dropFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (min-width: 801px) {
+      .landscape {
+        grid-template-columns: 1fr !important;
+      }
+    }
+
+    @media (max-width: 800px) {
+      .project-images.open {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  }
+  </style>
+</head>
+<body>
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Arbaz Awan - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: #0d1f1f;
+      color: #ffffff;
+      line-height: 1.6;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      color: #f0ff00;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .projects-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .project-box {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+      border-radius: 10px;
+      background-color: inherit;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: inherit;
+      text-transform: uppercase;
+    }
+
+    .project-box:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 40px rgba(255, 255, 0, 0.4);
+    }
+
+    /* Design Projects Only */
+    #design-projects .project-box {
+      background-color: #1b2f2f !important;
+      color: #f0ff00 !important;
+      
+    }
+
+    #design-projects .project-box:hover {
+     box-shadow: 0 15px 40px rgba(255, 255, 0, 0.4);
+    }
+
+    .design-content {
+      display: none;
+      width: 100%;
+      padding: 20px;
+      background-color: #122222;
+      color: #f0ff00;
+      border-radius: 10px;
+      animation: dropFade 0.3s ease;
+    }
+
+    .design-content.active {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      justify-content: center;
+    }
+
+    .design-content img {
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+
+    @keyframes dropFade {
+      0% {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .project-box {
+        height: 200px;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+  <script>
+    function toggleContent(id) {
+      const content = document.getElementById(id);
+      content.classList.toggle('active');
+    }
+  </script>
+</head>
+<body>
+ <nav style="background-color: #0d1f1f; padding: 15px 20px; position: sticky; top: 0; z-index: 999; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.8);">
+  <div style="color: #f0ff00; font-weight: bold; font-size: 1.2rem;">Arbaz</div>
+  <div style="display: flex; gap: 30px;">
+    <a href="#" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Home</a>
+    <a href="#about" style="color: #f0ff00; text-decoration: none; font-weight: bold;">About</a>
+    <a href="#projects" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Projects</a>
+    <a href="#services" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Services</a>
+    <a href="#contact" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Contact</a>
+  </div>
+</nav>
+  <header>
+    <h1>ARBAZ AHMED AWAN</h1>
+    
+    <p>software developer & graphic designer</p>
+    <div style="position: relative; z-index: 2; margin-top: 20px;">
+      <a href="https://github.com/ar-baazaja" target="_blank" style="margin: 0 10px; color: #f0ff00;"><i class="fa fa-github fa-2x"></i></a>
+      <a href="https://www.linkedin.com/in/arbaz-awan/" target="_blank" style="margin: 0 10px; color: #f0ff00;"><i class="fa fa-linkedin fa-2x"></i></a>
+      <a href="mailto:arbazawan2004@gmail.com" style="margin: 0 10px; color: #f0ff00;"><i class="fa fa-envelope fa-2x"></i></a>
+    </div>
+  </header>
+
+  <section id="about" class="about" style="text-align: center;">
+  <h2 class="section-title">ABOUT ME</h2>
+  <div style="color: #f0ff00; max-width: 800px; margin: 0 auto; text-align: justify;">
+      I’m a passionate and self-taught developer with a strong foundation in Python, machine learning, full-stack development, and graphic design. Over the past 3+ years, I’ve developed a versatile skill set that spans backend development with Flask, data analysis using Pandas and scikit-learn, deep learning with LSTM and transformers, and frontend design with HTML, CSS, and JavaScript. I’m also experienced in building dynamic interfaces using React, version control with Git, and deploying applications using modern cloud workflows.
+
+In addition to my technical background, I have a solid eye for design and experience in creating visually engaging graphics for digital platforms. I enjoy combining logic and creativity—whether it’s in writing clean, efficient code or crafting user-centric designs. I’m constantly exploring new tools and technologies to expand my capabilities and stay up-to-date with the evolving tech landscape.
+    </p>
+    <div style="text-align: center; margin-top: 40px;">
+    <a href="resume.pdf" download style="display: inline-block; margin-bottom: 40px; padding: 10px 25px; background-color: #f0ff00; color: #0d1f1f; text-decoration: none; font-weight: bold; border-radius: 5px;">Download Resume</a>
+  </div>
+
+  <section id="projects" class="projects">
+    <h2 class="section-title" style="text-align: center;">PROJECTS</h2>
+    <div class="projects-grid">
+    <a class="project-box" href="https://github.com/ar-baazaja/Job-Seeker" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="Job Seeker.jpg" alt="Job Seeker" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Job Seeker Platform</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-code'></i> <i class='fa fa-react'></i> React 
+        <i class='fa fa-server'></i> Node.js 
+        <i class='fa fa-cogs'></i> Express 
+        <i class='fa fa-database'></i> MongoDB
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>Full-stack job portal with dashboards and resume parsing.</p>
+    </div>
+  </div>
+</a>
+
+ 
+ <a class="project-box" href="https://github.com/ar-baazaja/BreastCancerPrediction" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="bcp.png" alt="Breast Cancer Prediction" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Breast Cancer Prediction</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-flask'></i> <i class='fa fa-python'></i> Python 
+        <i class='fa fa-cogs'></i> Scikit-learn 
+        <i class='fa fa-table'></i> Pandas
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>Machine learning model for diagnosing breast cancer.</p>
+    </div>
+  </div>
+</a>
+
+<a class="project-box" href="https://github.com/ar-baazaja/Eng_to_French_Translation" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="tr.jpg" alt="English to French Translator" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">English to French Translator</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-language'></i> <i class='fa fa-brain'></i> TensorFlow 
+        <i class='fa fa-cube'></i> Keras 
+        <i class='fa fa-python'></i> Python
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>Neural machine translation using Seq2Seq model.</p>
+    </div>
+  </div>
+</a>
+
+<a class="project-box" href="https://github.com/ar-baazaja/pokerhandprediction" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="poker.jpg" alt="Poker Hand Prediction" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Poker Hand Prediction</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-diamond'></i> <i class='fa fa-python'></i> Python 
+        <i class='fa fa-cogs'></i> Scikit-learn
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>AI system to predict poker hands using ML.</p>
+    </div>
+  </div>
+</a>
+
+<a class="project-box" href="https://github.com/ar-baazaja/Resume_Selection" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="resume.jpg" alt="Resume Selection" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Resume Selection</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-file-text'></i> <i class='fa fa-python'></i> Python 
+        <i class='fa fa-comment'></i> NLP 
+        <i class='fa fa-magic'></i> Spacy
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>Filters resumes using NLP techniques.</p>
+    </div>
+  </div>
+</a>
+
+<a class="project-box" href="https://github.com/ar-baazaja/flaskmediasync" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="cv.jpg" alt="Media Sync Flask App" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Media Sync Flask App</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-play-circle'></i> <i class='fa fa-fire'></i> Flask 
+        <i class='fa fa-python'></i> Python 
+        <i class='fa fa-code'></i> HTML/CSS
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>Flask app for syncing media files.</p>
+    </div>
+  </div>
+</a>
+
+<a class="project-box" href="https://github.com/ar-baazaja/Image-Segmentation" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="imgseg.png" alt="Image Segmentation" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Image Segmentation</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-cogs'></i> K-Means  
+        <i class='fa fa-code'></i> C Language  
+        <i class='fa fa-microchip'></i> Cuba
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>Implemented image segmentation in C using K-Means clustering with Cuba for fast computation.</p>
+    </div>
+  </div>
+</a>
+
+<a class="project-box" href="https://github.com/ar-baazaja/Blood-Bank" target="_blank">
+  <div class="slide slide1" style="position: relative; width: 100%; height: 300px; overflow: hidden; border-radius: 15px;">
+    <img src="blood.jpg" alt="Blood Bank System" style="width: 100%; height: 100%; object-fit: cover; position: absolute; top: 0; left: 0; z-index: 0;" />
+    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+    <div class="content" style="position: relative; z-index: 2; color: white; padding: 20px; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+      <h3 style="margin: 0;">Blood Bank Management</h3>
+      <p style="color: #f0ff00; font-size: 0.8rem;">
+        <i class='fa fa-database'></i> MySQL 
+        <i class='fa fa-html5'></i> HTML/CSS 
+        <i class='fa fa-code'></i> PHP
+      </p>
+    </div>
+  </div>
+  <div class="slide slide2">
+    <div class="content">
+      <p>System for managing blood donations and transfusion requests.</p>
+    </div>
+  </div>
+</a>
+
+  
+</section>
+
+<section id="design-projects" class="projects">
+    <h2 class="section-title">DESIGN PROJECTS</h2>
+    <div class="projects-grid">
+      <div class="project-box" onclick="toggleContent('poster')">Poster Designs</div>
+      <div id="poster" class="design-content">
+        <img src="MEDIAFEST_FINAL.png" alt="Poster Design 1" class="landscape" />
+        <img src="inductions.png" alt="Poster Design 2" class="portrait" />
+        <img src="reels.jpeg" alt="Poster Design 3" class="portrait" />
+        <img src="siraat.jpeg" alt="Poster Design 4" class="square" />
+        <img src="barzakh.jpeg" alt="Poster Design 5" class="square" />
+        <img src="FAREWELL TRIP.png" alt="Poster Design 6" class="landscape" />
+      </div>
+
+      <div class="project-box" onclick="toggleContent('web')">Web Designs</div>
+      <div id="web" class="design-content">
+        <img src="Home.png" alt="Web Design 1" class="landscape" />
+        <img src="Form.png" alt="Web Design 2" class="landscape" />
+        <img src="Search.png" alt="Web Design 2" class="landscape" />
+        <img src="Search Results.png" alt="Web Design 2" class="landscape" />
+      </div>
+    </div>
+  </section>
+
+<section id="services" class="services">
+  <h2 class="section-title" style="text-align: center;">SERVICES</h2>
+  <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 30px; color: #f0ff00; text-align: center;">
+    <div style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; background-color: #0d1f1f; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-radius: 10px;">
+      <i class="fa fa-code fa-2x" style="margin-bottom: 10px;"></i>
+      <h3>Full Stack Development</h3>
+      <p>Building robust web applications using React, Node.js, and MongoDB.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; background-color: #0d1f1f; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-radius: 10px;">
+      <i class="fa fa-bar-chart fa-2x" style="margin-bottom: 10px;"></i>
+      <h3>Data Analytics</h3>
+      <p>Transforming data into actionable insights using Python and ML.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; background-color: #0d1f1f; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-radius: 10px;">
+      <i class="fa fa-paint-brush fa-2x" style="margin-bottom: 10px;"></i>
+      <h3>Graphic Design</h3>
+      <p>Creating eye-catching designs for digital and print media.</p>
+    </div>
+     <div style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; background-color: #0d1f1f; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-radius: 10px;">
+      <i class="fa fa-cloud-upload fa-2x" style="margin-bottom: 10px;"></i>
+      <h3>Deployment</h3>
+      <p>Deploying websites and applications on platforms like Vercel, Netlify, and AWS.</p>
+    </div>
+    <div style="flex: 1; min-width: 250px; max-width: 300px; padding: 20px; background-color: #0d1f1f; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border-radius: 10px;">
+      <i class="fa fa-plug fa-2x" style="margin-bottom: 10px;"></i>
+      <h3>API Integration</h3>
+      <p>Integrating third-party APIs to enhance app functionality and user experience.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+
+<section id="contact" class="contact">
+  <h2 class="section-title" style="text-align: center;">CONTACT ME</h2>
+  <div style="max-width: 600px; margin: 0 auto; color: #f0ff00;">
+    <form action="mailto:arbazawan2004@gmail.com" method="POST" enctype="text/plain" style="display: flex; flex-direction: column; gap: 15px;">
+      <input type="text" name="name" placeholder="Your Name" required style="padding: 10px; border: 2px solid #f0ff00; border-radius: 5px; background-color: #0d1f1f; color: #f0ff00;">
+      <input type="email" name="email" placeholder="Your Email" required style="padding: 10px; border: 2px solid #f0ff00; border-radius: 5px; background-color: #0d1f1f; color: #f0ff00;">
+      <textarea name="message" rows="5" placeholder="Your Message" required style="padding: 10px; border: 2px solid #f0ff00; border-radius: 5px; background-color: #0d1f1f; color: #f0ff00;"></textarea>
+      <button type="submit" style="padding: 10px; background-color: #f0ff00; color: #0d1f1f; font-weight: bold; border: none; border-radius: 5px; cursor: pointer;">Send Message</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+</body>
+</html>
+
