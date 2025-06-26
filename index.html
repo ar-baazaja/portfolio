@@ -6,7 +6,8 @@
   <title>Arbaz Awan - Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
   <style>
     * {
@@ -260,6 +261,26 @@
   }
   </style>
 </head>
+<script>
+  const menuOpen = document.getElementById('menu-open');
+  const menuClose = document.getElementById('menu-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  menuOpen.addEventListener('click', () => {
+    mobileMenu.classList.add('active');
+  });
+
+  menuClose.addEventListener('click', () => {
+    mobileMenu.classList.remove('active');
+  });
+
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu.classList.remove('active');
+    });
+  });
+</script>
+
 <body>
  <!DOCTYPE html>
 <html lang="en">
@@ -376,79 +397,97 @@
         font-size: 1.2rem;
       }
     }
-      /* Mobile nav icon */
+
+    /* Navbar Base */
+.main-navbar {
+  background-color: #0d1f1f;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+}
+
+.main-navbar .logo {
+  color: #f0ff00;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.nav-links a {
+  color: #f0ff00;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 30px;
+}
+
+/* Hide desktop links on mobile */
+@media (max-width: 768px) {
+  .desktop-menu {
+    display: none !important;
+  }
+
   .mobile-nav {
-    display: none;
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    z-index: 1000;
+    display: block;
   }
-  .mobile-nav .fa-bars {
-    font-size: 2rem;
-    cursor: pointer;
-    color: #f0ff00;
-  }
+}
 
-  /* Mobile menu overlay */
-  .mobile-menu {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0.95);
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
+/* Mobile Hamburger */
+.mobile-nav {
+  display: none;
+  font-size: 2rem;
+  color: #f0ff00;
+  cursor: pointer;
+}
 
-  .mobile-menu.active {
-    display: flex;
-  }
+/* Mobile Menu Overlay */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-  .mobile-menu ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    text-align: center;
-  }
+.mobile-menu.active {
+  display: flex;
+}
 
-  .mobile-menu ul li {
-    margin: 1rem 0;
-  }
+.mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
 
-  .mobile-menu ul li a {
-    color: #f0ff00;
-    font-size: 1.5rem;
-    text-decoration: none;
-    transition: color 0.3s;
-  }
+.mobile-menu ul li {
+  margin: 1.5rem 0;
+}
 
-  .mobile-menu ul li a:hover {
-    color: #ffffff;
-  }
+.mobile-menu ul li a {
+  color: #f0ff00;
+  font-size: 1.5rem;
+  text-decoration: none;
+}
 
-  .mobile-menu .fa-times {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 2rem;
-    cursor: pointer;
-    color: #f0ff00;
-  }
+.mobile-menu .fa-times {
+  position: absolute;
+  top: 1rem;
+  right: 1.5rem;
+  font-size: 2rem;
+  color: #f0ff00;
+  cursor: pointer;
+}
 
-  /* Show mobile nav on small screens */
-  @media (max-width: 768px) {
-    .controls, .theme-btn {
-      display: none !important;
-    }
-    .mobile-nav {
-      display: block;
-    }
-  }
+
 
   </style>
   <script>
@@ -459,7 +498,18 @@
   </script>
 </head>
 <body>
+  <nav style="background-color: #0d1f1f; padding: 15px 20px; position: sticky; top: 0; z-index: 999; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.8);">
+    <div style="color: #f0ff00; font-weight: bold; font-size: 1.2rem;">Arbaz</div>
 
+    <!-- Desktop Menu -->
+    <div class="desktop-menu" style="display: flex; gap: 30px;">
+      <a href="#" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Home</a>
+      <a href="#about" style="color: #f0ff00; text-decoration: none; font-weight: bold;">About</a>
+      <a href="#projects" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Projects</a>
+      <a href="#services" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Services</a>
+      <a href="#contact" style="color: #f0ff00; text-decoration: none; font-weight: bold;">Contact</a>
+    </div>
+  </nav>
 
 
   <header>
